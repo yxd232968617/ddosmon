@@ -77,3 +77,20 @@ You can find and edit these configuration for you needs inside `configs/home.lua
 **NOTE:** Don't foger to configure the ips you want to monitor in the `example_watchedips.xml` file.
 
 This program was intended to monitor multiple ip addresses, so you can configure as many you like.
+
+  `
+  yum -y install git boost-devel libxml2-devel lua-devel ncurses-devel
+wget http://luajit.org/download/LuaJIT-2.0.4.tar.gz
+tar -zxvf LuaJIT-2.0.4.tar.gz
+cd LuaJIT-2.0.4 && make && make install
+
+
+git clone https://github.com/edubart/ddosmon.git
+cd ddosmon
+mkdir build
+cd build
+cmake ..
+#vi CMakeFiles/ddosmon.dir/link.txt -llua5.1改为-llua
+
+make
+  `
