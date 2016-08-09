@@ -21,7 +21,7 @@ let IP="0x`printf '%02X' ${IPSTR2}; echo`"
 INTERFACE=`cat $WATCHEDIPS_XML | grep $IPSTR | sed 's/.*interface="\([^"]*\)".*/\1/'`
 MYSQL_COMMAND="mysql --host=${MYSQL_HOST} --port=${MYSQL_PORT} --user=${MYSQL_USER} --password=${MYSQL_PASSWORD} ${MYSQL_DATABASE}"
 
-if [ -z $INTERFACE ]; then
+if [ -z "$INTERFACE" ]; then
     echo "Ip not found on watchedips.xml"
     exit
 fi
