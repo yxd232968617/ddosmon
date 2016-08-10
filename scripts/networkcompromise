@@ -7,7 +7,9 @@ fi
 
 sendSignalToServer() {
   #inform any server that it is being attacked here
+  echo "##### send to server ###"
   echo "-> send signal to server...."
+  echo "#####"
 }
 
 if [ $1 = "compromised" ]; then

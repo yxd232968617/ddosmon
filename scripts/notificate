@@ -4,4 +4,7 @@ SUBJECT=$1
 MESSAGE=$2
 NOTIFY_EMAILS="example@gmail.com"
 
-echo "$MESSAGE" | mail -s "$SUBJECT" $NOTIFY_EMAILS
+echo "###### MESSAGE #####"
+echo "$MESSAGE"
+echo "######"
+#echo "$MESSAGE" | mail -s "$SUBJECT" $NOTIFY_EMAILS
