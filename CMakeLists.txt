@@ -7,7 +7,7 @@ IF(NOT CMAKE_BUILD_TYPE)
 ENDIF(NOT CMAKE_BUILD_TYPE)
 
 FIND_PACKAGE(Boost COMPONENTS thread system REQUIRED)
-INCLUDE_DIRECTORIES(/usr/include/libxml2 /usr/include/lua5.1)
+INCLUDE_DIRECTORIES(/usr/include/libxml2 /usr/include/lua)
 ADD_DEFINITIONS(-D_REENTRANT)
 
 SET(CMAKE_CXX_FLAGS_DEBUG "-O1 -g -ggdb -fno-inline ")
