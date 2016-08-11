@@ -8,7 +8,7 @@ fi
 sendSignalToServer() {
   #inform any server that it is being attacked here
   echo "##### send to server ###"
-  echo "-> send signal to server...."
+  echo "-> send signal to server....$1"
   echo "#####"
 }
 
