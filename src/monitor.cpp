@@ -149,9 +149,10 @@ void Monitor::update()
                          trafficStats->getPackets() >= ConfigManager::instance()->getNumber(ConfigManager::NOTIFICATION_PACKETS_THRESHOLD))) {
                 ddos = new Ddos(ip);
                 m_ddoses.push_back(ddos);
-                Screen::instance()->notificate(boost::str(boost::format("Possible new DDoS at %1% with %2% kbits/s")
+                Screen::instance()->notificate(boost::str(boost::format("Possible new DDoS at %1% with %2% kbits/s and %3% p/s")
                                                           % ipToString(ip)
-                                                          % trafficStats->getKBits()));
+                                                          % trafficStats->getKBits()
+                                                          % trafficStats->getPackets()));
             }
 
             // update active ddos
