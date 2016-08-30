@@ -1,21 +1,46 @@
 #!/bin/bash
 
+# configurations
+MYSQL_HOST="localhost"
+MYSQL_PORT="3306"
+MYSQL_USER="root"
+MYSQL_PASSWORD=""
+MYSQL_DATABASE="login"
+
 if [ -z $1 ]; then
   echo "Usage: ${0} <compromised/uncomprimised>"
   exit
 fi
 
+MYSQL_COMMAND="mysql --host=${MYSQL_HOST} --port=${MYSQL_PORT} --user=${MYSQL_USER} --password=${MYSQL_PASSWORD} ${MYSQL_DATABASE}"
+
+executeQuery() {
+    echo $1 | ${MYSQL_COMMAND}
+}
+
+activeddos() {
+    executeQuery "UPDATE ddos_status SET status=1"
+    #ifconfig ${INTERFACE} ${IPSTR} down
+}
+
+stopddos() {
+    executeQuery "UPDATE ddos_status SET status=0"
+    #ifconfig ${INTERFACE} ${IPSTR} up
+}
+
 sendSignalToServer() {
   #inform any server that it is being attacked here
   echo "##### send to server ###"
-  echo "-> send signal to server....$1"
   echo "#####"
 }
 
 if [ $1 = "compromised" ]; then
+  activeddos
   sendSignalToServer SIGUSR1
 elif [ $1 = "uncompromised" ]; then
+  stopddos
   sendSignalToServer SIGUSR2
 else
   echo "invalid option"
 fi
+
