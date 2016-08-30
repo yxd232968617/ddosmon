@@ -31,7 +31,6 @@ stopddos() {
 sendSignalToServer() {
   #inform any server that it is being attacked here
   echo "##### send to server ###"
-  curl "http://security.uuzu.com/dashboard/api/alert-msg?reporter=10.6.24.70&mtype=ddosmon&message=$1"
   echo "#####"
 }
 
@@ -44,3 +43,4 @@ elif [ $1 = "uncompromised" ]; then
 else
   echo "invalid option"
 fi
+
