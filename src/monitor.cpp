@@ -149,9 +149,10 @@ void Monitor::update()
                          trafficStats->getPackets() >= ConfigManager::instance()->getNumber(ConfigManager::NOTIFICATION_PACKETS_THRESHOLD))) {
                 ddos = new Ddos(ip);
                 m_ddoses.push_back(ddos);
-                Screen::instance()->notificate(boost::str(boost::format("Possible new DDoS at %1% with %2% kbits/s")
+                Screen::instance()->notificate(boost::str(boost::format("Possible new DDoS at %1% with %2% kbits/s and %3% p/s")
                                                           % ipToString(ip)
-                                                          % trafficStats->getKBits()));
+                                                          % trafficStats->getKBits()
+                                                          % trafficStats->getPackets()));
             }
 
             // update active ddos
@@ -181,6 +182,7 @@ void Monitor::update()
         if(m_incoming->getKBits() >= ConfigManager::instance()->getNumber(ConfigManager::GLOBAL_TRAFFIC_THRESHOLD) ||
            m_incoming->getPackets() >= ConfigManager::instance()->getNumber(ConfigManager::GLOBAL_PACKETS_THRESHOLD)) {
             if(!m_underMassiveDdos) {
+                # ddos begin sigusr
                 system(ConfigManager::instance()->getString(ConfigManager::ONNETWORK_COMPROMISE_COMMAND).c_str());
                 m_underMassiveDdos = true;
                 Screen::instance()->notificate(boost::str(boost::format("Network traffic is compromised, it is under massive DDOS, possible type: %1%")
@@ -190,6 +192,7 @@ void Monitor::update()
         } else if(m_underMassiveDdos) {
             m_massiveDdosPassTicks++;
             if(m_massiveDdosPassTicks >= ConfigManager::instance()->getNumber(ConfigManager::NETWORK_UNCOMPROMISE_TICKS)) {
+                # ddos stop sigusr
                 system(ConfigManager::instance()->getString(ConfigManager::ONNETWORK_UNCOMPROMISE_COMMAND).c_str());
                 m_underMassiveDdos = false;
                 Screen::instance()->notificate("Network traffic is uncompromised now, the massive flood stopped");
