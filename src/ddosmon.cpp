@@ -6,6 +6,7 @@
 #include "configmanager.h"
 #include "screen.h"
 
+// 信号处理
 void signalHandler(int sig)
 {
     if(sig == SIGINT)
@@ -22,12 +23,13 @@ void signalHandler(int sig)
 
 int main(int argc, char *argv[])
 {
-    // setup the logger
-    signal(SIGTERM, &signalHandler);
-    signal(SIGINT, &signalHandler);
-    signal(SIGHUP, &signalHandler);
-    signal(SIGKILL, &signalHandler);
+    // 注册信号处理
+    signal(SIGTERM, &signalHandler);    // 软件终止
+    signal(SIGINT, &signalHandler);     // 中断（ctrl+c
+    signal(SIGHUP, &signalHandler);     // 挂起
+    signal(SIGKILL, &signalHandler);    // 杀死
 
+    // 参数检测
     if(argc != 2) {
         std::cout << "Usage: " << argv[0] << " <config>" << std::endl;
         return -1;
